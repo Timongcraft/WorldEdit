@@ -8,8 +8,8 @@ import java.net.URI
 
 plugins {
     alias(libs.plugins.fabric.loom)
-    `java-library`
     id("buildlogic.platform")
+    id("buildlogic.validate-minecraft-library-versions-fabric")
 }
 
 platform {
