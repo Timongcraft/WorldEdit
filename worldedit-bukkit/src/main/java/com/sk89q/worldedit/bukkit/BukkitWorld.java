@@ -233,7 +233,7 @@ public class BukkitWorld extends AbstractWorld {
         }
 
         Block block = getWorld().getBlockAt(pt.x(), pt.y(), pt.z());
-        BlockState state = PaperLib.getBlockState(block, false).getState();
+        BlockState state = PaperLib.isPaper() ? block.getState(false) : block.getState();
         if (!(state instanceof InventoryHolder inventoryHolder)) {
             return false;
         }
