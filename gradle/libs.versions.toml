@@ -2,7 +2,7 @@
 neogradle-userdev = { id = "net.neoforged.gradle.userdev", version.ref = "neogradle" }
 sponge-spongegradle = "org.spongepowered.gradle.plugin:2.3.0"
 sponge-vanillagradle = { id = "org.spongepowered.gradle.vanilla", version.ref = "sponge-vanillagradle" }
-fabric-loom = "net.fabricmc.fabric-loom:1.17.11"
+fabric-loom = "net.fabricmc.fabric-loom:1.17.19"
 
 [versions]
 kyoriText = "3.0.4"
@@ -15,14 +15,14 @@ errorprone = "2.48.0"
 
 crankcase = "0.1.0"
 
-fabric-api = "0.154.0+26.2"
+fabric-api = "0.156.0+26.2"
 
 neogradle = "7.1.38"
 neoforge-minecraft = "26.2"
 
 sponge-minecraft = "26.2"
 # https://repo.spongepowered.org/service/rest/repository/browse/maven-public/org/spongepowered/spongeapi/
-sponge-api = "19.0.0-20260501.142639-2"
+sponge-api = "20.0.0-20260726.033647-1"
 sponge-api-major = "20"
 
 sponge-vanillagradle = "0.3.2"
@@ -33,8 +33,8 @@ minimumJdependency = "2.10"
 minimumTinyRemapper = "0.8.11"
 
 # https://repo.enginehub.org/language-files/com/sk89q/worldedit/worldedit-lang/
-lang-worldeditBase = "7.4.4"
-lang-version = "2233"
+lang-worldeditBase = "7.4.5"
+lang-version = "2246"
 
 [libraries]
 neogradle-neoform = { module = "net.neoforged.gradle:neoform", version.ref = "neogradle" }
@@ -105,7 +105,7 @@ fabric-minecraft = "com.mojang:minecraft:26.2"
 fabric-loader = "net.fabricmc:fabric-loader:0.19.3"
 fabric-permissions-api = "me.lucko:fabric-permissions-api:0.7.0"
 
-neoforge = "net.neoforged:neoforge:26.2.0.7-beta"
+neoforge = "net.neoforged:neoforge:26.2.0.53-beta"
 
 # Mojang-provided libraries, validated by `:worldedit-fabric:verifyMinecraftLibraries`
 guava = "com.google.guava:guava:33.6.0-jre"
