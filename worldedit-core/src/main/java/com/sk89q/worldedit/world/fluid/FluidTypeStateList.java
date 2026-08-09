@@ -19,28 +19,23 @@
 
 package com.sk89q.worldedit.world.fluid;
 
-import javax.annotation.Nullable;
+import com.sk89q.worldedit.registry.state.Property;
+import it.unimi.dsi.fastutil.objects.AbstractObjectList;
+
+import java.util.Map;
 
 /**
- * Stores a list of common {@link FluidType FluidTypes}.
- *
- * @see FluidType
+ * A specialized list for looking up canonical fluid states from a fluid type.
  */
-@SuppressWarnings("unused")
-public final class FluidTypes {
-    @Nullable public static final FluidType EMPTY = get("minecraft:empty");
-    @Nullable public static final FluidType FLOWING_LAVA = get("minecraft:flowing_lava");
-    @Nullable public static final FluidType FLOWING_WATER = get("minecraft:flowing_water");
-    @Nullable public static final FluidType LAVA = get("minecraft:lava");
-    @Nullable public static final FluidType WATER = get("minecraft:water");
-
-    private FluidTypes() {
+abstract class FluidTypeStateList extends AbstractObjectList<FluidState> {
+    static FluidTypeStateList createFor(FluidType fluidType) {
+        if (fluidType.getProperties().isEmpty()) {
+            return new SingletonFluidTypeStateList(fluidType);
+        }
+        return new DefaultFluidTypeStateList(fluidType);
     }
 
-    /**
-     * Gets the {@link FluidType} associated with the given id.
-     */
-    public static @Nullable FluidType get(String id) {
-        return FluidType.REGISTRY.get(id);
-    }
+    abstract int calculateIndex(Map<Property<?>, ?> state);
+
+    abstract int updateIndexOrInvalid(int currentIndex, Property<?> property, Object oldValue, Object newValue);
 }

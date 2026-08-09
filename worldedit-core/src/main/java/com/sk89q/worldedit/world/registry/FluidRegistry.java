@@ -17,30 +17,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.sk89q.worldedit.world.fluid;
+package com.sk89q.worldedit.world.registry;
 
-import javax.annotation.Nullable;
+import com.sk89q.worldedit.registry.state.Property;
+import com.sk89q.worldedit.world.fluid.FluidType;
+
+import java.util.Map;
 
 /**
- * Stores a list of common {@link FluidType FluidTypes}.
- *
- * @see FluidType
+ * Provides platform-specific fluid state properties.
  */
-@SuppressWarnings("unused")
-public final class FluidTypes {
-    @Nullable public static final FluidType EMPTY = get("minecraft:empty");
-    @Nullable public static final FluidType FLOWING_LAVA = get("minecraft:flowing_lava");
-    @Nullable public static final FluidType FLOWING_WATER = get("minecraft:flowing_water");
-    @Nullable public static final FluidType LAVA = get("minecraft:lava");
-    @Nullable public static final FluidType WATER = get("minecraft:water");
-
-    private FluidTypes() {
-    }
+public interface FluidRegistry {
 
     /**
-     * Gets the {@link FluidType} associated with the given id.
+     * Gets an unmodifiable map of properties for a fluid type.
+     *
+     * @param fluidType the fluid type
+     * @return a map from property names to properties
      */
-    public static @Nullable FluidType get(String id) {
-        return FluidType.REGISTRY.get(id);
-    }
+    Map<String, ? extends Property<?>> getProperties(FluidType fluidType);
 }

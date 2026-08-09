@@ -24,8 +24,12 @@ import com.sk89q.worldedit.sponge.internal.SpongeTransmogrifier;
 import com.sk89q.worldedit.util.formatting.text.Component;
 import com.sk89q.worldedit.world.block.BlockState;
 import com.sk89q.worldedit.world.block.BlockType;
+import com.sk89q.worldedit.world.fluid.FluidState;
+import com.sk89q.worldedit.world.fluid.FluidType;
+import com.sk89q.worldedit.world.fluid.FluidTypes;
 import com.sk89q.worldedit.world.registry.BlockMaterial;
 import com.sk89q.worldedit.world.registry.BlockRegistry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import org.spongepowered.api.ResourceKey;
 import org.spongepowered.api.Sponge;
@@ -78,6 +82,24 @@ public class SpongeBlockRegistry implements BlockRegistry {
             map.put(key.name(), SpongeTransmogrifier.transmogToWorldEditProperty(key));
         }
         return map;
+    }
+
+    @Override
+    public FluidState getFluidState(BlockState state) {
+        net.minecraft.world.level.block.state.BlockState equivalent = (net.minecraft.world.level.block.state.BlockState)
+            SpongeAdapter.adapt(state);
+        net.minecraft.world.level.material.FluidState fluidState = equivalent.getFluidState();
+        if (fluidState.isEmpty()) {
+            return FluidTypes.EMPTY.getDefaultState();
+        }
+        String id = BuiltInRegistries.FLUID.getKey(fluidState.getType()).toString();
+        FluidType type = FluidTypes.get(id);
+        Map<Property<?>, Object> properties = new HashMap<>();
+        for (var property : fluidState.getProperties()) {
+            properties.put(SpongeTransmogrifier.transmogToWorldEditProperty((StateProperty<?>) property),
+                fluidState.getValue(property));
+        }
+        return type.getState(properties);
     }
 
     @Override

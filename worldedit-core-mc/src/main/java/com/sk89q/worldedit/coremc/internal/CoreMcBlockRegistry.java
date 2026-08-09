@@ -24,8 +24,12 @@ import com.sk89q.worldedit.util.formatting.text.Component;
 import com.sk89q.worldedit.util.formatting.text.TranslatableComponent;
 import com.sk89q.worldedit.world.block.BlockState;
 import com.sk89q.worldedit.world.block.BlockType;
+import com.sk89q.worldedit.world.fluid.FluidState;
+import com.sk89q.worldedit.world.fluid.FluidType;
+import com.sk89q.worldedit.world.fluid.FluidTypes;
 import com.sk89q.worldedit.world.registry.BlockMaterial;
 import com.sk89q.worldedit.world.registry.BlockRegistry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 
 import java.util.Collection;
@@ -71,6 +75,23 @@ public final class CoreMcBlockRegistry implements BlockRegistry {
             map.put(key.getName(), platform.getTransmogrifier().transmogToWorldEditProperty(key));
         }
         return map;
+    }
+
+    @Override
+    public FluidState getFluidState(BlockState state) {
+        net.minecraft.world.level.material.FluidState fluidState = platform.getAdapter()
+            .toNativeBlockState(state).getFluidState();
+        if (fluidState.isEmpty()) {
+            return FluidTypes.EMPTY.getDefaultState();
+        }
+        String id = BuiltInRegistries.FLUID.getKey(fluidState.getType()).toString();
+        FluidType type = FluidTypes.get(id);
+        Map<Property<?>, Object> properties = new HashMap<>();
+        for (var property : fluidState.getProperties()) {
+            properties.put(platform.getTransmogrifier().transmogToWorldEditProperty(property),
+                fluidState.getValue(property));
+        }
+        return type.getState(properties);
     }
 
     @Override
