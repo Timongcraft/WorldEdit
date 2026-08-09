@@ -1,3 +1,9 @@
+7.4.5
+- [Bukkit] Improve Folia detection for forks which obfuscate that they're Folia
+- [Bukkit] Replace PaperLib to improve compatibility with newer Minecraft versions
+- [Fabric] Added support for the official Fabric Permissions API
+- [Fabric & NeoForge] Update mod manifest information to better integrate with mod menus
+
 7.4.4
 - Updated to 26.2
 - Fixed an error that can occur when generating schematic suggestions in some cases
