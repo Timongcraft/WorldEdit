@@ -48,7 +48,6 @@ import com.sk89q.worldedit.world.gamemode.GameModes;
 import io.papermc.lib.PaperLib;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.block.TileState;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -326,10 +325,10 @@ public class BukkitPlayer extends AbstractPlayerActor {
             return;
         }
         LinCompoundTag nbtData = baseBlock.getNbt();
-        if (nbtData == null || !(data.createBlockState() instanceof TileState tileState)) {
+        if (nbtData == null) {
             return;
         }
-        adapter.sendFakeNBT(player, pos, tileState, nbtData);
+        adapter.sendFakeNBT(player, pos, baseBlock, nbtData);
         if (block != null && block.getBlockType() == BlockTypes.STRUCTURE_BLOCK) {
             adapter.sendFakeOP(player);
         }

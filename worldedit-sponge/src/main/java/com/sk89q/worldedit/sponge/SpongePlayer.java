@@ -264,17 +264,17 @@ public class SpongePlayer extends AbstractPlayerActor {
             CompoundTag nativeNbtData = NbtAdapter.adaptNMSToWorldEdit(nbtData);
 
             SpongeLoggingProblemReporter.with(
-                    () -> "loading block entity for fake player " + player.uniqueId(),
-                    reporter -> {
-                        //noinspection DataFlowIssue
-                        nativeBlockEntity.loadWithComponents(
-                                TagValueInput.create(reporter, nativeBlockEntity.getLevel().registryAccess(), nativeNbtData)
-                        );
-                        return null;
-                    }
+                () -> "loading block entity for fake player " + player.uniqueId(),
+                reporter -> {
+                    //noinspection DataFlowIssue
+                    nativeBlockEntity.loadWithComponents(
+                        TagValueInput.create(reporter, nativeBlockEntity.getLevel().registryAccess(), nativeNbtData)
+                    );
+                    return null;
+                }
             );
             nativePlayer.connection.send(
-                    ClientboundBlockEntityDataPacket.create(nativeBlockEntity, (_, _) -> nativeNbtData)
+                ClientboundBlockEntityDataPacket.create(nativeBlockEntity, (_, _) -> nativeNbtData)
             );
         }
     }
