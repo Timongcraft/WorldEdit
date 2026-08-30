@@ -251,7 +251,7 @@ public class SpongePlayer extends AbstractPlayerActor {
                 return;
             }
             net.minecraft.world.level.block.state.BlockState nativeBlock =
-                    (net.minecraft.world.level.block.state.BlockState) spongeBlock;
+                (net.minecraft.world.level.block.state.BlockState) spongeBlock;
             if (!(nativeBlock.getBlock() instanceof EntityBlock nativeEntityBlock)) {
                 return;
             }
